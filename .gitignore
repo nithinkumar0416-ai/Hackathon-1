@@ -1,12 +1,6 @@
 # Dependencies
 node_modules/
 
-# Environment files — NEVER commit these
-.env
-.env.local
-.env.production
-.env.development
-
 # Build output
 dist/
 build/
