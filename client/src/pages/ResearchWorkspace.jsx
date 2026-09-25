@@ -127,6 +127,9 @@ function KnowledgeGraph({ graphData, onNodeClick, highlightedNode }) {
   }, [graphData]);
 
   const paintNode = useCallback((node, ctx, globalScale) => {
+    // Guard against non-finite positions during initial simulation ticks
+    if (!isFinite(node.x) || !isFinite(node.y)) return;
+
     const label = node.label;
     const fontSize = Math.max(10 / globalScale, 3);
     const r = node.size;
@@ -161,6 +164,7 @@ function KnowledgeGraph({ graphData, onNodeClick, highlightedNode }) {
       ctx.fillText(label.length > 18 ? label.slice(0, 16) + '…' : label, node.x, node.y + r + fontSize + 2);
     }
   }, [highlightedNode]);
+
 
   return (
     <div ref={containerRef} className="graph-container">
@@ -234,7 +238,7 @@ export default function ResearchWorkspace() {
   const location = useLocation();
   const navState = location.state || {};
 
-  const [document, setDocument] = useState(null);
+  const [docInfo, setDocInfo] = useState(null); // renamed from 'document' to avoid shadowing window.document
   const [insights, setInsights] = useState(navState.insights || null); // pre-loaded from upload
   const [analyzing, setAnalyzing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -248,7 +252,7 @@ export default function ResearchWorkspace() {
     const fetchData = async () => {
       try {
         const { data: docData } = await API.get(`/api/documents/${id}`);
-        setDocument(docData.document);
+        setDocInfo(docData.document);
 
         // If insights were pre-loaded from upload navigation state, skip fetching
         if (navState.insights) {
@@ -313,9 +317,9 @@ export default function ResearchWorkspace() {
     setHighlightedNode(node.id);
     setSelectedNode(node);
     setActiveTab('claims');
-    // Scroll to first matching claim
+    // Scroll to first matching claim — use window.document to avoid state variable collision
     setTimeout(() => {
-      document.querySelector('.claim-card.highlighted')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      window.document.querySelector('.claim-card.highlighted')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   };
 
@@ -333,11 +337,11 @@ export default function ResearchWorkspace() {
           <ArrowLeft size={14} /> Dashboard
         </button>
         <div className="workspace-header-center">
-          <h1 className="workspace-doc-title">{document?.title}</h1>
-          {document && (
+          <h1 className="workspace-doc-title">{docInfo?.title}</h1>
+          {docInfo && (
             <span className="workspace-word-count">
               <BookOpen size={12} />
-              {document.extracted_text?.split(/\s+/).filter(Boolean).length?.toLocaleString()} words
+              {docInfo.extracted_text?.split(/\s+/).filter(Boolean).length?.toLocaleString()} words
             </span>
           )}
         </div>
