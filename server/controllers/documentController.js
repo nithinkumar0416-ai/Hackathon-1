@@ -13,8 +13,17 @@ async function extractText(buffer, mimetype, filename) {
   // PDF — gracefully handle password-protected and corrupted files
   if (ext === '.pdf' || mimetype === 'application/pdf') {
     try {
-      const data = await pdfParse(buffer);
-      if (data.text && data.text.trim().length > 10) return data.text;
+      let extracted = '';
+      if (pdfParseModule.PDFParse) {
+        const parser = new pdfParseModule.PDFParse({ data: buffer });
+        const res = await parser.getText();
+        await parser.destroy?.();
+        extracted = res?.text || '';
+      } else if (typeof pdfParse === 'function') {
+        const data = await pdfParse(buffer);
+        extracted = data?.text || '';
+      }
+      if (extracted && extracted.trim().length > 10) return extracted.trim();
       return '[PDF had no extractable text — may be image-based or scanned]';
     } catch {
       return '[PDF could not be parsed — file may be password-protected or corrupted. Text extraction skipped.]';
