@@ -1,0 +1,301 @@
+/* ─── Dashboard Layout ───────────────────────────────────── */
+.dashboard-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────── */
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.nav-logo {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-primary), #9b59b6);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.35);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-user {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ─── Main Content ───────────────────────────────────────── */
+.dashboard-main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ─── Hero ───────────────────────────────────────────────── */
+.dashboard-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dashboard-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ─── Stats ──────────────────────────────────────────────── */
+.dashboard-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 28px;
+}
+
+.stat-item { display: flex; flex-direction: column; gap: 2px; }
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-value.accent { color: var(--accent-secondary); }
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+}
+
+/* ─── Document Grid ──────────────────────────────────────── */
+.docs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.doc-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.doc-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-accent);
+  transform: translateX(4px);
+}
+
+.doc-card-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.doc-card-body { flex: 1; min-width: 0; }
+
+.doc-card-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.doc-card-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.doc-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.doc-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.doc-card-skeleton {
+  height: 82px;
+  margin-bottom: 12px;
+}
+
+/* ─── Empty State ────────────────────────────────────────── */
+.docs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.docs-empty-icon { color: var(--text-muted); margin-bottom: 8px; }
+
+.docs-empty h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.docs-empty p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  max-width: 380px;
+}
+
+/* ─── Upload Modal ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Dropzone ───────────────────────────────────────────── */
+.dropzone {
+  margin: 24px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropzone:hover, .dropzone.active {
+  border-color: var(--accent-primary);
+  background: rgba(108, 99, 255, 0.05);
+}
+
+.dropzone.has-file {
+  border-color: var(--accent-secondary);
+  background: rgba(0, 212, 170, 0.05);
+  border-style: solid;
+}
+
+.dropzone-upload-icon { color: var(--accent-primary); margin-bottom: 4px; }
+
+.dropzone p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.dropzone span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dropzone-file { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.dropzone-file-icon { color: var(--accent-secondary); }
+.dropzone-filename { font-size: 0.9rem; font-weight: 500; word-break: break-all; }
+.dropzone-filesize { font-size: 0.78rem; color: var(--text-muted); }
+
+.nav-subtitle { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
